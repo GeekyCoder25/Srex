@@ -42,7 +42,7 @@ const questions = [
 	},
 ];
 
-const citysContainer = document.querySelector('#citys');
+const citysContainer = document.querySelector('#cities');
 
 workingCities.forEach(city => {
 	const cityContainer = document.createElement('div');

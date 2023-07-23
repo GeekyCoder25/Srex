@@ -254,13 +254,13 @@
 .article3 .section1 {
 	margin: 30px auto;
 }
-.article3 .states {
+.article3 .cities {
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: 3.125rem;
 	row-gap: 1.25rem;
 }
-.article3 .state {
+.article3 .city {
 	width: 250px;
 	height: 50px;
 	display: flex;
@@ -517,10 +517,10 @@
 	.article3 .section1 {
 		min-height: 0;
 	}
-	.article3 .states {
+	.article3 .cities {
 		margin-top: 1.875rem;
 	}
-	.article3 .state {
+	.article3 .city {
 		width: 150px;
 	}
 	.article4 {
@@ -567,7 +567,7 @@
 	}
 }
 @media (max-width: 400px) {
-	.article3 .states {
+	.article3 .cities {
 		justify-content: space-between;
 	}
 }
