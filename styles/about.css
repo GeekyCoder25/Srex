@@ -16,6 +16,7 @@ header section {
 	min-height: calc(100vh - 150px);
 	max-width: 1440px;
 	margin: auto;
+	padding: 0 20px;
 }
 header section h1 {
 	font-size: 48px;

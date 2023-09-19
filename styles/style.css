@@ -16,7 +16,8 @@ a {
 	color: var(--primaryTextColor);
 }
 body {
-	font-family: serif;
+	font-family: source-serif;
+	accent-color: var(--secondaryColor);
 }
 h2 {
 	font-family: KanitRegular;
@@ -92,6 +93,7 @@ h2 {
 	border: none;
 	padding: 0.75rem 1.5625rem;
 	border-radius: 0.5rem;
+	cursor: pointer;
 }
 .nav .buttons button:last-child {
 	border: 0.1875rem solid var(--secondaryColor);
@@ -223,7 +225,7 @@ footer {
 		width: 70%;
 	}
 	.footer {
-		padding: 1.875rem 0.625rem 1.875rem;
+		padding: 1.875rem 1.25rem 1.875rem;
 		overflow: hidden;
 	}
 	.footer .section1 {

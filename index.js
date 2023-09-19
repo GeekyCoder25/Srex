@@ -19,6 +19,7 @@ footerYear.textContent =
 	`${new Date().getFullYear()} ` + footerYear.textContent;
 
 const barIcon = document.querySelector('.nav .fas');
+
 const handleNav = e => {
 	const nav = document.querySelector('.nav ');
 	const navlinksContainer = document.querySelector('.nav .navlinks');
