@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="../styles/dashboard.css" />
 	</head>
 	<body class="main-dashboard">
+		<div class="mobile-overlay" onclick="handleMobileOverLay()"></div>
 		<side-bar></side-bar>
 		<section class="main-body">
 			<header-bar></header-bar>
@@ -97,27 +98,38 @@
 							<span>Tracking ID</span>
 							<span>AMOUNT</span>
 							<span>EST. DELIVERY DATE</span>
+							<span></span>
 						</div>
 						<div class="list-content">
 							<span>Name Surname <span>State country</span></span>
 							<span>Name Surname <span>State country</span></span>
 							<span>TrackingID</span>
 							<span>₦Amount</span>
-							<span>new Date() <span class="success">Delivered</span> </span>
+							<span>new Date() </span>
+							<span>
+								<span class="status success">Delivered</span>
+							</span>
+							<small>View</small>
 						</div>
 						<div class="list-content">
 							<span>Name Surname <span>State country</span></span>
 							<span>Name Surname <span>State country</span></span>
 							<span>TrackingID</span>
 							<span>₦Amount</span>
-							<span>new Date() <span class="pending">In transit</span> </span>
+							<span>new Date()</span>
+							<span>
+								<span class="status pending">In transit</span>
+							</span>
+							<small>View</small>
 						</div>
 						<div class="list-content">
 							<span>Name Surname <span>State country</span></span>
 							<span>Name Surname <span>State country</span></span>
 							<span>TrackingID</span>
 							<span>₦Amount</span>
-							<span>new Date() <span class="failed">Failed</span> </span>
+							<span>new Date() </span>
+							<span> <span class="status failed">Failed</span> </span>
+							<small>View</small>
 						</div>
 					</div>
 				</section>

@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="../styles/dashboard.css" />
 	</head>
 	<body class="main-dashboard">
+		<div class="mobile-overlay" onclick="handleMobileOverLay()"></div>
 		<side-bar></side-bar>
 		<section class="main-body">
 			<header-bar></header-bar>
@@ -25,25 +26,55 @@
 					</div>
 					<div class="grid-right right">Fund wallet</div>
 				</div>
-				<header>
-					<button onclick="handleActiveTransactions('all')" class="active">
-						All transactions
-					</button>
-					<button onclick="handleActiveTransactions('credit')">
-						Credit transactions
-					</button>
-					<button onclick="handleActiveTransactions('debit')">
-						Debit transactions
-					</button>
-					<button></button>
-				</header>
-				<div class="list-header">
-					<span>AMOUNT</span>
-					<span>TYPE</span>
-					<span>Tracking ID</span>
-					<span>DATE</span>
-					<span>STATUS</span>
-				</div>
+				<section>
+					<header>
+						<button onclick="handleActiveTransactions('all')" class="active">
+							All transactions
+						</button>
+						<button onclick="handleActiveTransactions('credit')">
+							Credit transactions
+						</button>
+						<button onclick="handleActiveTransactions('debit')">
+							Debit transactions
+						</button>
+						<button></button>
+					</header>
+					<div class="list-header">
+						<span>AMOUNT</span>
+						<span>TYPE</span>
+						<span>Tracking ID</span>
+						<span>DATE</span>
+						<span>STATUS</span>
+					</div>
+					<div class="list-content">
+						<span>Name Surname <span> State country </span> </span
+						><span>Name Surname <span>State country</span> </span
+						><span>TrackingID</span>
+						<span>₦Amount</span>
+						<span> new Date() </span>
+						<span>
+							<span class="status success">Delivered</span>
+						</span>
+					</div>
+					<div class="list-content">
+						<span>Name Surname <span> State country </span> </span
+						><span>Name Surname <span>State country</span> </span
+						><span>TrackingID</span>
+						<span>₦Amount</span>
+						<span> new Date() </span>
+						<span>
+							<span class="status pending">In transit</span>
+						</span>
+					</div>
+					<div class="list-content">
+						<span>Name Surname <span> State country </span> </span
+						><span>Name Surname <span>State country</span> </span
+						><span>TrackingID</span>
+						<span>₦Amount</span>
+						<span> new Date() </span>
+						<span> <span class="status failed">Failed</span> </span>
+					</div>
+				</section>
 			</div>
 		</section>
 	</body>
