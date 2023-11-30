@@ -180,7 +180,7 @@ let modalOpen = false;
 
 let isBookingDataComplete = false;
 let errorMessage = '';
-let bookingStep = 1;
+let bookingStep = 4;
 const balance = 5000;
 const deliveryOptions = [
 	{type: 'normal', amount: 5000, periodInDays: 5},
@@ -190,10 +190,11 @@ let shipmentData = {
 	type: '',
 	method: '',
 	destinationOption: '',
-	senderDetails: {},
-	receiverDetails: {},
-	item: {},
-	delivery: {},
+	senderDetails: null,
+	receiverDetails: null,
+	item: null,
+	delivery: null,
+	paymentMethod: '',
 };
 
 const handleModal = () => {
@@ -290,6 +291,7 @@ const handleShippingMethodSelect = selected => {
 		dateButton.classList.add('hide');
 		shipmentData.method = selected;
 	} else {
+		continueButton.classList.add('hide');
 		shipmentData.method = selected;
 	}
 
@@ -314,9 +316,8 @@ const handleNextStep = step => {
 	handleShipmentBook();
 };
 
-const handleUserDetails = type => {
+const handleUserDetails = (type, backClicked) => {
 	// Array of input IDs
-
 	const inputIds = [
 		'name',
 		'email',
@@ -333,6 +334,19 @@ const handleUserDetails = type => {
 		'quantity',
 		'weight',
 	];
+	if (shipmentData[type] && backClicked) {
+		return inputIds.forEach(id => {
+			const element = document.getElementById(id);
+			// For checkbox inputs, store their checked status'
+			if (element) {
+				if (element.type === 'checkbox') {
+					element.checked = shipmentData[type][id];
+				} else {
+					element.value = shipmentData[type][id];
+				}
+			}
+		});
+	}
 
 	// Object to store form data
 	const formData = {};
@@ -486,10 +500,9 @@ const handleShipmentBook = () => {
 					Continue
 				</button>
 			`;
-			break;
+			shipmentData.type && handleShippingTypeSelect(shipmentData.type);
 			break;
 		case 2:
-			let selectDate;
 			modalTitle.textContent = 'Choose a shipment method';
 			modalBody.innerHTML = String.raw`
 				<section>
@@ -515,6 +528,7 @@ const handleShipmentBook = () => {
 					Continue
 				</button>
 			`;
+			shipmentData.method && handleShippingMethodSelect(shipmentData.method);
 			break;
 		case 3:
 			modalTitle.textContent = 'Choose your destination option';
@@ -533,6 +547,8 @@ const handleShipmentBook = () => {
 					Continue
 				</button>
 			`;
+			shipmentData.destinationOption &&
+				handleShippingDestinationSelect(shipmentData.destinationOption);
 			break;
 		case 4:
 			modalTitle.textContent = 'Input sender details';
@@ -585,6 +601,8 @@ const handleShipmentBook = () => {
 					</button>
 				</form>
 			`;
+			shipmentData.senderDetails &&
+				handleUserDetails('senderDetails', 'backClicked');
 			break;
 		case 5:
 			modalTitle.textContent = 'Input receiver details';
@@ -637,6 +655,8 @@ const handleShipmentBook = () => {
 					</button>
 				</form>
 			`;
+			shipmentData.receiverDetails &&
+				handleUserDetails('receiverDetails', 'backClicked');
 			break;
 		case 6:
 			modalTitle.textContent = 'Input item description';
@@ -684,6 +704,7 @@ const handleShipmentBook = () => {
 					</button>
 				</form>
 			`;
+			shipmentData.item && handleUserDetails('item', 'backClicked');
 			break;
 		case 7:
 			modalTitle.textContent = 'Delivery option';
@@ -800,11 +821,11 @@ const handleShipmentBook = () => {
 			const rerenderElement = paymentType => {
 				const deliverOption = document.querySelector(`#${paymentType}`);
 				const imgElement = deliverOption.querySelector('img');
-				shipmentData.paymentType = paymentType;
+				shipmentData.paymentMethod = paymentType;
 				document
 					.querySelectorAll('.deliverOption img')
 					.forEach(option => (option.src = '../assets/images/select.svg'));
-				if (shipmentData?.paymentType === paymentType) {
+				if (shipmentData?.paymentMethod === paymentType) {
 					imgElement.src = '../assets/images/selected.svg';
 				} else {
 					imgElement.src = '../assets/images/select.svg';
@@ -821,6 +842,7 @@ const handleShipmentBook = () => {
 					rerenderElement(paymentType); // Pass the extracted paymentType to rerenderElement
 				});
 			});
+			shipmentData.paymentMethod && rerenderElement(shipmentData.paymentMethod);
 			break;
 		default:
 			modalTitle.textContent = 'Book a shipment';
@@ -918,3 +940,5 @@ const handleProfile = () => {
 		</aside>
 	</section>`;
 };
+
+handleShipmentBook();
