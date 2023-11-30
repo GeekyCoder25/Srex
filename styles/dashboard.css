@@ -1354,7 +1354,8 @@ header-bar {
 		bottom: 0;
 
 		& svg {
-			display: none;
+			width: 15px;
+			height: 15px;
 		}
 
 		& .modalBody {
@@ -1363,6 +1364,9 @@ header-bar {
 			& > section {
 				gap: 20px;
 			}
+		}
+		& .deliverOption:hover {
+			border: 0 solid #edeff1;
 		}
 	}
 	.wallet {

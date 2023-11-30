@@ -829,7 +829,6 @@ const handleShipmentBook = () => {
 	}
 };
 
-handleShipmentBook();
 const handleOverlay = () => {
 	const overlay = document.querySelector('.overlay');
 	modalOpen = false;
