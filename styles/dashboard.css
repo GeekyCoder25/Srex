@@ -39,6 +39,11 @@
 		padding: 20px 10%;
 		gap: 10%;
 	}
+	& nav a .fas {
+		width: 28px;
+		height: 28px;
+		font-size: 1.5rem;
+	}
 	& .active img {
 		filter: brightness(0) saturate(100%) invert(22%) sepia(37%) saturate(6596%)
 			hue-rotate(334deg) brightness(83%) contrast(89%);
@@ -671,6 +676,50 @@ header-bar {
 				border: 2px solid #cb2449;
 			}
 		}
+		& .addressButton {
+			border-radius: 8px;
+			border: 2px solid #fff;
+			outline-color: #cb2449;
+			background: #fff;
+			box-shadow: 0px 4px 14px 0px rgba(82, 100, 116, 0.16);
+			width: 100%;
+			height: 113px;
+			transition: transform 0.1s ease;
+			text-align: left;
+			padding: 20px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 10px;
+			& > span {
+				display: none;
+			}
+			& div {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				gap: 20px;
+				& h4 {
+					font-family: rubikRegular;
+					font-weight: 600;
+					font-size: 1rem;
+				}
+				& span {
+					color: #959595;
+					font-family: rubikRegular;
+					font-size: 1rem;
+					display: flex;
+					align-items: center;
+					gap: 5px;
+				}
+			}
+			& img {
+				cursor: pointer;
+			}
+		}
+		& .add-address {
+			color: #cb2449;
+		}
 	}
 
 	& form {
@@ -757,6 +806,9 @@ header-bar {
 		& p {
 			font-family: rubikRegular;
 		}
+		& img {
+			cursor: pointer;
+		}
 	}
 	& .deliverOption:hover {
 		border: 2px solid #cb2449;
@@ -771,6 +823,7 @@ header-bar {
 		& > div {
 			display: flex;
 			gap: 15px;
+			margin-top: 20px;
 			& > div {
 				display: flex;
 				flex-direction: column;
@@ -829,7 +882,19 @@ header-bar {
 			}
 		}
 	}
-
+	& .payment-details {
+		margin-top: 10px;
+		font-family: rubikRegular;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		& li {
+			list-style: none;
+			display: flex;
+			flex-direction: row;
+			gap: 15px;
+		}
+	}
 	& .payment {
 		display: flex;
 		flex-direction: column;

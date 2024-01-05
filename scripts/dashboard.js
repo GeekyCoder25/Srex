@@ -77,6 +77,12 @@ class SideBar extends HTMLElement {
 								FAQs
 							</a>
 						</li>
+						<li>
+							<a href="/support.html">
+								<i class="fas fa-headset"></i>
+								Support
+							</a>
+						</li>
 					</ul>
 				</nav>
 				<div class="logout">
@@ -180,7 +186,23 @@ let modalOpen = false;
 
 let isBookingDataComplete = false;
 let errorMessage = '';
-let bookingStep = 4;
+let bookingStep = 9;
+let addNewAddress = false;
+const senderAddresses = [
+	{
+		name: 'Toyyib Lawal',
+		email: 'toyibe25@gmail.com',
+		phone: '+2349073002599',
+		address: 'Mandate Estate',
+		postal: '240243',
+		city: 'Ilorin',
+		state: 'Kwara State',
+		country: 'Nigeria',
+		save: true,
+		id: 1,
+	},
+];
+const receiverAddresses = [];
 const balance = 5000;
 const deliveryOptions = [
 	{type: 'normal', amount: 5000, periodInDays: 5},
@@ -316,6 +338,33 @@ const handleNextStep = step => {
 	handleShipmentBook();
 };
 
+const handleAddressSelect = selected => {
+	const selectors = document.querySelectorAll('#address-selector');
+	selectors.forEach(selector => (selector.src = '../assets/images/select.svg'));
+	event.target.src = '../assets/images/selected.svg';
+	const continueButton = document.querySelector('.modal .button');
+	continueButton.classList.remove('hide');
+
+	if (!shipmentData.senderDetails) {
+		shipmentData.senderDetails = senderAddresses.find(
+			address => address.id == selected
+		);
+	} else {
+		shipmentData.receiverDetails = receiverAddresses.find(
+			address => address.id == selected
+		);
+	}
+};
+
+const handleAddNewAddress = () => {
+	addNewAddress = true;
+	shipmentData.senderDetails = null;
+	handleShipmentBook();
+};
+
+const handleAddressSelected = () => {
+	handleNextStep(bookingStep);
+};
 const handleUserDetails = (type, backClicked) => {
 	// Array of input IDs
 	const inputIds = [
@@ -551,9 +600,67 @@ const handleShipmentBook = () => {
 				handleShippingDestinationSelect(shipmentData.destinationOption);
 			break;
 		case 4:
-			modalTitle.textContent = 'Input sender details';
+			if (
+				senderAddresses.length &&
+				!addNewAddress &&
+				!shipmentData.senderDetails
+			) {
+				modalTitle.textContent = 'Select address';
+				modalBody.innerHTML = String.raw` ${senderAddresses
+					.map(
+						address => String.raw`
+							<button class= "addressButton">
+								<div>
+									<h4>${address.name}</h4>
+									<span>
+										<svg
+											width="24"
+											height="17"
+											viewBox="0 0 24 17"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<g clip-path="url(#clip0_432_699)">
+												<path
+													fill-rule="evenodd"
+													clip-rule="evenodd"
+													d="M0 0H24V17H0V0Z"
+													fill="white"
+												/>
+												<path
+													fill-rule="evenodd"
+													clip-rule="evenodd"
+													d="M15.9975 0H24V17H15.9975V0ZM0 0H7.99875V17H0V0Z"
+													fill="#008753"
+												/>
+											</g>
+											<defs>
+												<clipPath id="clip0_432_699">
+													<rect width="24" height="17" fill="white" />
+												</clipPath>
+											</defs>
+										</svg>
+										<span>${address.city} ${address.state}, ${address.country}</span>
+									</span>
+								</div>
+								<img
+									src="../assets/images/select.svg"
+									onclick="handleAddressSelect('${address.id}')"
+									id="address-selector"
+								/>
+							</button>
+						`
+					)
+					.join('')}
+					<p class="add-address" onclick="handleAddNewAddress()">Add new address</p>
+						<button class="button hide" onclick="handleAddressSelected()">
+					Continue
+				</button>
+					`;
+			} else {
+				modalTitle.textContent = 'Input sender details';
 
-			modalBody.innerHTML = String.raw`
+				modalBody.innerHTML = String.raw`
 				<form>
 					<div>
 						<label htmlFor="name">Full name</label>
@@ -601,13 +708,72 @@ const handleShipmentBook = () => {
 					</button>
 				</form>
 			`;
+			}
 			shipmentData.senderDetails &&
 				handleUserDetails('senderDetails', 'backClicked');
 			break;
 		case 5:
-			modalTitle.textContent = 'Input receiver details';
+			if (
+				receiverAddresses.length &&
+				!addNewAddress &&
+				!shipmentData.receiverDetails
+			) {
+				modalTitle.textContent = 'Select address';
+				modalBody.innerHTML = String.raw` ${receiverAddresses
+					.map(
+						address => String.raw`
+							<button class= "addressButton">
+								<div>
+									<h4>${address.name}</h4>
+									<span>
+										<svg
+											width="24"
+											height="17"
+											viewBox="0 0 24 17"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<g clip-path="url(#clip0_432_699)">
+												<path
+													fill-rule="evenodd"
+													clip-rule="evenodd"
+													d="M0 0H24V17H0V0Z"
+													fill="white"
+												/>
+												<path
+													fill-rule="evenodd"
+													clip-rule="evenodd"
+													d="M15.9975 0H24V17H15.9975V0ZM0 0H7.99875V17H0V0Z"
+													fill="#008753"
+												/>
+											</g>
+											<defs>
+												<clipPath id="clip0_432_699">
+													<rect width="24" height="17" fill="white" />
+												</clipPath>
+											</defs>
+										</svg>
+										<span>${address.city} ${address.state}, ${address.country}</span>
+									</span>
+								</div>
+								<img
+									src="../assets/images/select.svg"
+									onclick="handleAddressSelect('${address.id}')"
+									id="address-selector"
+								/>
+							</button>
+						`
+					)
+					.join('')}
+					<p class="add-address" onclick="handleAddNewAddress()">Add new address</p>
+						<button class="button hide" onclick="handleAddressSelected()">
+					Continue
+				</button>
+					`;
+			} else {
+				modalTitle.textContent = 'Input receiver details';
 
-			modalBody.innerHTML = String.raw`
+				modalBody.innerHTML = String.raw`
 				<form>
 					<div>
 						<label htmlFor="name">Full name</label>
@@ -655,6 +821,7 @@ const handleShipmentBook = () => {
 					</button>
 				</form>
 			`;
+			}
 			shipmentData.receiverDetails &&
 				handleUserDetails('receiverDetails', 'backClicked');
 			break;
@@ -796,27 +963,43 @@ const handleShipmentBook = () => {
 			modalTitle.textContent = 'Payment';
 
 			modalBody.innerHTML = String.raw`
-
-			<div class="deliverOption" id="wallet">
-						<div>
-
-							<h3>Pay from wallet</h3>
-							<p>Your balance is ₦${balance.toLocaleString()}</p>
-							<button class="button">Fund Wallet</button>
-						</div>
-						<img src="../assets/images/select.svg" />
+				<div>
+					<h3>Payment details</h3>
+					<ul class="payment-details">
+						<li>
+							<span>Subtotal:</span>
+							<span>₦10,000</span>
+						</li>
+						<li>
+							<span>Shipping:</span>
+							<span>₦1,200</span>
+						</li>
+						<li>
+							<h3>Total:</h3>
+							<h3>₦11,200</h3>
+						</li>
+					</ul>
 				</div>
-			<div class="deliverOption" id="card">
-						<div>
-							<h3>Pay with card</h3>
-							<button class="button">Add new card</button>
-						</div>
-						<img src="../assets/images/select.svg" />
+
+				<div class="deliverOption" id="wallet">
+					<div>
+						<h3>Pay from wallet</h3>
+						<p>Your balance is ₦${balance.toLocaleString()}</p>
+						<button class="button">Fund Wallet</button>
+					</div>
+					<img src="../assets/images/select.svg" />
+				</div>
+				<div class="deliverOption" id="card">
+					<div>
+						<h3>Pay with card</h3>
+						<button class="button">Add new card</button>
+					</div>
+					<img src="../assets/images/select.svg" />
 				</div>
 				<div class="deliverButton hide" onclick="handlePay()">
-							<button class="button ">Make Payment</button>
-						</div>
-				`;
+					<button class="button ">Make Payment</button>
+				</div>
+			`;
 
 			const rerenderElement = paymentType => {
 				const deliverOption = document.querySelector(`#${paymentType}`);
@@ -941,4 +1124,4 @@ const handleProfile = () => {
 	</section>`;
 };
 
-handleShipmentBook();
+// handleShipmentBook();
